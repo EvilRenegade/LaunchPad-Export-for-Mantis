@@ -29,7 +29,10 @@
 
 	function getPersonXml($pUserId, $pTagName = 'person') {
 		if(user_exists($pUserId)) {
-			return sprintf('<%s email="%s">%s</%s>', $pTagName, user_get_email($pUserId), xmlentities(htmlentities(user_get_name($pUserId), ENT_IGNORE, 'UTF-8')), $pTagName);
+			// there was a bug where we'd get empty e-mail attributes, this should fix that.
+			$email = user_get_email($pUserId);
+			$emailbit = (($email !== null) && !is_blank($email)) ? " email=\"$email\"" : '';
+			return sprintf('<%s%s>%s</%s>', $pTagName, $emailbit, xmlentities(htmlentities(user_get_name($pUserId), ENT_IGNORE, 'UTF-8')), $pTagName);
 		} else {
 			return "<$pTagName name=\"nobody\"/>";
 		}
