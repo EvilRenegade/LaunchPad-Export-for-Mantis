@@ -52,14 +52,13 @@ $comments = array(
 		)
 	),
 	array(
-		"sender" => lpXmlWriter::getPersonArray("Lexa", "Rommie@Andromeda-Ascendant.mil", "Alexandra L. Doig"),
 		"date" => 1234567891,
 		"text" => "Oh baby, show me more!",
 		"attachments" => array(
 			array(
 				"contents" => "I wish this were an image.",
 				"patch" => true,
-				"filename" => "ascend_for_me.jpg",
+				"filename" => "anon_me_hard.jpg",
 				"mimetype" => "application/pr0nz"
 			)
 		)

@@ -1,4 +1,24 @@
 <?php
+/*
+    lpXmlWriter is an extension of PHP's XMLWriter class that provides a number of
+    helper methods and presets to speed up generation of LaunchPad bug-import XML files.
+    Copyright (C) 2011  Charly "Renegade" Kiendl
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	
+*/
+
 // based on allenap's bug-export.rnc revision 14276
 
 class lpXmlWriter extends XMLWriter {
@@ -260,7 +280,11 @@ class lpXmlWriter extends XMLWriter {
 			
 			$this->startElement("comment");
 			
-			$this->writePersonA("sender", $p["sender"]);
+			if(isset($p["sender"])) {
+				$this->writePersonA("sender", $p["sender"]);
+			} else {
+				$this->writeNobody("sender");
+			}
 			$this->writeStuff("date", lpXmlWriter::getTimestamp($p["date"]));
 			if(isset($p["title"])) {
 				$this->writeStuff("title", $p["title"]);
