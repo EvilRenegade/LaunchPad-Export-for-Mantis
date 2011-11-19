@@ -44,15 +44,11 @@ class lpXmlWriter extends XMLWriter {
 	// we'll just replace all illegal characters with a dash
 	public static function getLpName($pName) {
 		$retVal = preg_replace('/[^a-z0-9\+\.\-]/', '-', strtolower($pName));
-		while(!ctype_alnum($retVal[0]) && (strlen($retVal) > 0)) {
-			$retVal = ltrim($retVal, $retVal[0]);
-		}
-		
-		return $retVal;
+		return ltrim($retVal, "+.-");
 	}
 	
 	public static function getCveName($pName) {
-		return $pName; // todo validate against rxp
+		return (preg_match("/^(19|20)[0-9][0-9]-[0-9][0-9][0-9][0-9]$/", $pName) > 0) ? $pName : preg_replace("/^00/", "20", substr_replace(substr(str_pad(preg_replace("/[^0-9]/", "", $pName), 8, '0'), 0, 8), '-', 4, 0));
 	}
 	
 	public static function getTimestamp($pTimestamp) {
@@ -352,7 +348,7 @@ class lpXmlWriter extends XMLWriter {
 			$this->debug("$pTagName was not written because no content was given.");
 			return;
 		}
-		$this->writeElement($pTagName, $pStuff);
+		$this->writeElement($pTagName, strip_tags($pStuff));
 	}
 	
 	private function writeStuffArray($pOuterTag, $pInnerTag, array $pContents) {
