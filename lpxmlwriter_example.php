@@ -11,10 +11,10 @@ $securityRelated = false;
 $duplicateOf = 69;
 $dateCreated = 1342696969;
 $bugNickname = "Test Büg";
-$title = "This is a test bug";
+$title = "This is a test bug üöäß";
 $description = "This is the bug's
 <h1>TOTALLY AWESOME</h1>
-description.";
+description. üöäß &trade;";
 $user = lpXmlWriter::gpa("Renegade", "Renegade@RenegadeProjects.com", "Evil Renegade");
 $status = lpXmlWriter::$WONTFIX;
 $importance = lpXmlWriter::$CRITICAL;
@@ -33,7 +33,7 @@ $comments = array(
 		"text" => $description
 	),
 	array(
-		"sender" => lpXmlWriter::gpa("Lady Gaga", "hotstefani86@ladygaga.com", "Gaga OOh-La-La"),
+		"sender" => lpXmlWriter::gpa("~Lady Gaga~", "hotstefani86@ladygaga.com", "Gaga OOh-La-La"),
 		"date" => 1234567890,
 		"text" => "Here are the pictures you wanted!",
 		"attachments" => array(
@@ -53,7 +53,7 @@ $comments = array(
 	),
 	array(
 		"date" => 1234567891,
-		"text" => "Oh baby, show me more!",
+		"text" => "Oh baby, show me more! üöäß",
 		"attachments" => array(
 			array(
 				"contents" => "I wish this were an image.",
