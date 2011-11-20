@@ -1,4 +1,24 @@
 <?php
+/*
+TODO:
+	Bugs:
+		* Strip HTML formatting
+		* Carry over duplicates
+		* Fix <person> name=-attribute (uses e-mail-address currently)
+		* Remove UNKNOWN status
+		* 
+
+	Features:
+		* Turn other relationships into tags for future conversion - alternatively, comments; tag: needs-relationship-fix
+		* Automagically add more tags
+		* Tagify ICS
+		* Object orientation
+
+	Questions:
+		* duplicate e-mail addresses?
+		* https://bugs.qastaging.launchpad.net/ares/+bug/864246 duplicate relationship?
+*/
+
 	// This function was designed by Martijn ? >> http://php.dijksterhuis.org/fixing-html_entities-for-xml/
 	// Thanks for that!
 	// MODIFIED for: sbquo, lsquo, &rsquo;, &infin;, larr, rarr, &ndash;
@@ -36,10 +56,13 @@
 	}
 	
 	// based on https://help.launchpad.net/Bugs/Statuses/External#Mantis
+	// Mantis is far finer-grained than LaunchPad; it has a status, a resolution and a reproducibility;
+	// Launchpad only has a status. This function takes Mantis's three indicators and distills them down
+	// to one LaunchPad status.
 	function getLaunchpadStatus($pMantisStatus, $pMantisResolution, $pMantisReproducibility) {
 		$retVal = '';
 		
-		if(($pMantisStatus == RESOLVED) || ($pMantisStatus == CLOSED)) {
+		if(($pMantisStatus == RESOLVED) || ($pMantisStatus == CLOSED)) { // if this issue is marked as resolved/closed, we go by the resolution
 			switch($pMantisResolution) {
 				case REOPENED:
 					$retVal = 'NEW';
@@ -63,11 +86,11 @@
 					break;
 				
 				default:
-					$retVal = 'UNKNOWN';
+					$retVal = 'NEW';
 					break;
 			}
 		} else {
-			switch($pMantisStatus) {
+			switch($pMantisStatus) { // if it's not resolved yet, we go by the current status
 				case NEW_:
 					$retVal = 'NEW';
 					break;
@@ -77,7 +100,7 @@
 					break;
 				
 				case ACKNOWLEDGED: // LP's external connector marks these confirmed, but since they're not, we're converting differently
-					$retVal = 'UNKNOWN';
+					$retVal = 'NEW';
 					break;
 				
 				case CONFIRMED:
@@ -89,11 +112,11 @@
 					break;
 				
 				default:
-					$retVal = 'UNKNOWN';
+					$retVal = 'NEW';
 					break;
 			}
 			
-			switch($pMantisReproducibility) {
+			switch($pMantisReproducibility) { // lastly, we do a little checking of the reproducibility, to weed out bullshit-issues
 				case REPRODUCIBILITY_HAVENOTTRIED: // this is surely debatable, but since I'm writing this for my own purposes first, this is how we'll handle it :P
 					$retVal = 'INCOMPLETE';
 					break;
