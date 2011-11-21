@@ -570,7 +570,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeTags(array $pTags) {
-		if(!isset($pTags) || (count($pTags) < 1) {
+		if(!isset($pTags) || (count($pTags) < 1)) {
 			return;
 		}
 		foreach($pTags as $key => $value) {
