@@ -285,6 +285,7 @@ class lpXmlWriter extends XMLWriter {
 		}
 		
 		$this->setIndent(true);
+		$this->setIndentString("\t");
 		$this->startDocument("1.0", 'UTF-8');
 		$this->startElementNS(NULL, "launchpad-bugs", lpXmlWriter::$xmlNs);
 	}
@@ -354,7 +355,10 @@ class lpXmlWriter extends XMLWriter {
 		if($this->noOpenBug($pTagName)) return;
 		
 		$this->startElement($pTagName);
-		$this->writeAttribute("name", lpXmlWriter::getLpName($pUserName));
+		$lpname = lpXmlWriter::getLpName($pUserName);
+		if(strlen($lpname) > 0) { // if people's nicks consist entirely out of special characters, they cannot be reduced to lpnames
+			$this->writeAttribute("name", lpXmlWriter::getLpName($pUserName));
+		}
 		$this->writeAttribute("email", $pEmail);
 		if(isset($pFullName)) {
 			$this->text($pFullName);
@@ -529,7 +533,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeUrls(array $pUrls) {
-		if(isset($pUrls)) {
+		if(isset($pUrls) && (count($pUrls) > 0)) {
 			$this->startElement("urls");
 			foreach($pUrls as $title => $url) {
 				$this->startElement("url");
@@ -574,7 +578,14 @@ class lpXmlWriter extends XMLWriter {
 			return;
 		}
 		foreach($pTags as $key => $value) {
-			$pTags[$key] = lpXmlWriter::getLpName($value);
+			$tag = lpXmlWriter::getLpName($value);
+			
+			if(strlen($tag) == 0) { // it's possible getLpName() eliminates all characters in the string, and we don't want to write an empty tag
+				unset($pTags[$key]);
+				continue;
+			}
+			
+			$pTags[$key] = $tag;
 		}
 		
 		$this->writeStuffArray("tags", "tag", $pTags);
@@ -591,7 +602,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeBugwatches(array $pUrls) {
-		if(isset($pUrls)) {
+		if(isset($pUrls) && (count($pUrls) > 0)) {
 			$this->startElement("bugwatches");
 			foreach($pUrls as $url) {
 				$this->startElement("bugwatch");
@@ -613,7 +624,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeSubscriptions(array $pSubs) {
-		if(isset($pSubs)) {
+		if(isset($pSubs) && (count($pSubs) > 0)) {
 			$this->startElement("subscriptions");
 			foreach($pSubs as $sub) {
 				$this->writePersonA("subscriber", $sub);
@@ -633,7 +644,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeComments(array $pComments) {
-		if(!isset($pComments)) {
+		if(!isset($pComments) || (count($pComments) < 1)) {
 			$this->debug("Comment array was not set.");
 			return;
 		}
@@ -682,7 +693,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeAttachments(array $pAttachments) {
-		if(!isset($pAttachments)) {
+		if(!isset($pAttachments) || (count($pAttachments) < 1)) {
 			$this->debug("Attachment array was not set.");
 			return;
 		}
