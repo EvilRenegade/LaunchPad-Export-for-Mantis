@@ -192,7 +192,7 @@ class lpXmlWriter extends XMLWriter {
 	/**
 		\brief Gets the lpname from the given string.
 		\details LaunchPad's schema defines an "lpname" datatype which represents
-		strings that LaunchPad accepts as nicknames for certain objects; these lpnames
+		strings that LaunchPad accepts as nicknames for users; these lpnames
 		are severely limited in that they can only consist of lowercase A-Z, 0-9 and
 		the plus, minus and period characters, starting only with the former ones.
 		
@@ -207,6 +207,35 @@ class lpXmlWriter extends XMLWriter {
 	public static function getLpName($pName) {
 		$retVal = preg_replace('/-{2,}/', '-', preg_replace('/[^a-z0-9\+\.\-]/', '-', strtolower($pName)));
 		return trim($retVal, "+.-");
+	}
+	
+	/**
+		\brief Gets the lpbugname from the given string.
+		\details LaunchPad's schema defines an "lpbugname" datatype which represents
+		strings that LaunchPad accepts as nicknames for bugs; these lpbugnames
+		are severely limited in that they can only consist of lowercase A-Z, 0-9 and
+		the plus, minus and period characters, starting only with lowercase letters.
+		
+		This function converts a given string into a legal lpbugname.
+		\warning The function is in no way gentle with its conversion: It simply converts
+		the argument to lowercase and turns all illegal characters into dashes.\n
+		If you need something more sophisticated, you need to roll your own method.
+		
+		\param $pName The string to convert.
+		\return The lpbugname representation of the given string.
+	*/
+	public static function getLpBugName($pName) {
+		$numberNames = array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
+		// get the standard lpname for this string
+		$lpname = lpXmlWriter::getLpName($pName);
+		$retVal = $lpname;
+		
+		// replace leading digits with their wordy equivalents (cheap, yes, but effective)
+		if(is_numeric($lpname[0])) {
+			$leadInt = intval($lpname[0]);
+			$retVal = substr_replace($lpname, $numberNames[$leadInt], 0, 1);
+		}
+		return $retVal;
 	}
 	
 	/**
@@ -471,7 +500,7 @@ class lpXmlWriter extends XMLWriter {
 		\return Nothing, but writes to the XML output.
 	*/
 	public function writeNickname($pNickname) {
-		$this->writeStuff("nickname", lpXmlWriter::getLpName($pNickname));
+		$this->writeStuff("nickname", lpXmlWriter::getLpBugName($pNickname));
 	}
 	
 	/**	\brief Writes the \<title\> tag to the document.
