@@ -401,7 +401,7 @@ class bugWrapper {
 		if(!is_blank($targetVersion)) {
 			$version = $targetVersion;
 		} else if(!is_blank($fixedInVersion)) {
-			$version = $pFixedInVersion;
+			$version = $fixedInVersion;
 		}
 		
 		return str_replace("$curProjName ", '', $version); // LaunchPad auto-prepends the project name.
