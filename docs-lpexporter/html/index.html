@@ -72,6 +72,12 @@ Configure your LaunchPad project name</h2>
  <b>Value:</b> Your project name on LaunchPad.</li>
 <li>Click the <code>Set Configuration Option</code> button.</li>
 </ul>
+<h2><a class="anchor" id="missing"></a>
+Missing features</h2>
+<p>This exporter was designed and tested on a single instance of Mantis, for a single export venture. As a result, differing configurations may lead to trouble and/or the need to patch.<br/>
+ One example would be uploads conversion: The test Mantis had the default "uploads
+	in database" configuration, and that's what the code works with. If your uploads lie on disk at the moment, you will have to alter the code to read the file contents from there instead.<br/>
+ If you do patch the exporter to work with a different configuration, please contribute the code back to the project so others can benefit.</p>
 <h2><a class="anchor" id="info"></a>
 Information</h2>
 <p>The LaunchPad Export for Mantis plugin was written by Charly "Renegade" Kiendl in November 2011 for Mantis 1.2.5. It <em>should</em> work for all Mantises of the 1.2.x series, but no other version has been tested so far. Patches are welcome.<br/>
@@ -91,7 +97,7 @@ Information</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 29 2011 02:48:49 for LaunchPad Export for Mantis by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 29 2011 03:15:22 for LaunchPad Export for Mantis by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

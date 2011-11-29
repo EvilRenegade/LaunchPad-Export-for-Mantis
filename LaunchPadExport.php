@@ -42,6 +42,17 @@
 		  \b Value: Your project name on LaunchPad.
 		- Click the <tt>Set Configuration Option</tt> button.
 	
+	\section missing Missing features
+	This exporter was designed and tested on a single instance of Mantis, for a single
+	export venture. As a result, differing configurations may lead to trouble and/or
+	the need to patch.\n
+	One example would be uploads conversion: The test Mantis had the default "uploads
+	in database" configuration, and that's what the code works with. If your uploads
+	lie on disk at the moment, you will have to alter the code to read the file contents
+	from there instead.\n
+	If you do patch the exporter to work with a different configuration, please contribute
+	the code back to the project so others can benefit.
+	
 	\section info Information
 	The LaunchPad Export for Mantis plugin was written by Charly "Renegade" Kiendl in
 	November 2011 for Mantis 1.2.5. It \e should work for all Mantises of the 1.2.x series,
