@@ -746,7 +746,7 @@ ORDER BY bf.date_added";
 $outputFileName = project_get_name(helper_get_current_project()) . '-LaunchPad-Import-' . date('Ymd-His') . ".xml";
 
 // instantiate lpXmlWriter
-$lp = new lpXmlWriter("./uploads/$outputFileName");
+$lp = new lpXmlWriter("./uploads/$outputFileName"); //! \todo I'm not sure if Mantis allows moving/configuring the upload folder, if so, this hardcoding of ./uploads/ should be fixed.
 
 // get the bugs
 $pageWeWantToSee = 1; // we want to see page 1, the start, of the virtual "view bugs" page we're on

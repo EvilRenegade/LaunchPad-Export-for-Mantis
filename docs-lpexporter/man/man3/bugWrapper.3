@@ -1,0 +1,479 @@
+.TH "bugWrapper" 3 "Tue Nov 29 2011" "Version 2.0" "LaunchPad Export for Mantis" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bugWrapper \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (&$pBug, &$pLpXmlWriter)"
+.br
+.RI "\fICreates a new bug wrapper. \fP"
+.ti -1c
+.RI "\fBgenerateXml\fP ()"
+.br
+.RI "\fIGenerates/outputs the XML for this bug through the referenced lpXmlWriter. \fP"
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fB$bugnoteTable\fP"
+.br
+.RI "\fIThe name of the bugnotes table in the DB. \fP"
+.ti -1c
+.RI "static \fB$bugfileTable\fP"
+.br
+.RI "\fIThe name of the bug files table in the DB. \fP"
+.ti -1c
+.RI "static \fB$usedNicknames\fP = array()"
+.br
+.RI "\fIStatic array of bug nicknames already used. \fP"
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBgetId\fP ()"
+.br
+.RI "\fIReturns this bug's ID. \fP"
+.ti -1c
+.RI "\fBnotARealUser\fP ($pUserId)"
+.br
+.RI "\fIHelper function checking whether the given user is a system account, rather than an actual user. \fP"
+.ti -1c
+.RI "\fBgetReporter\fP ()"
+.br
+.RI "\fIReturns the author/submitter/reporter of this bug. \fP"
+.ti -1c
+.RI "\fBgetDescription\fP ()"
+.br
+.RI "\fIHelper function to cache the output of \fBgetFullDescription()\fP. Use this rather than that. \fP"
+.ti -1c
+.RI "\fBisPrivate\fP ()"
+.br
+.RI "\fIWhether this bug is private. \fP"
+.ti -1c
+.RI "\fBgetRelationships\fP ()"
+.br
+.RI "\fIReturns the relationships this bug is the source of. \fP"
+.ti -1c
+.RI "\fBgetOriginal\fP ()"
+.br
+.RI "\fIIf this bug is a duplicate of another bug, this function gets the bug ID of the original. \fP"
+.ti -1c
+.RI "\fBgetRelationshipTags\fP ()"
+.br
+.RI "\fIGenerates tags out of the relationships a bug is in. \fP"
+.ti -1c
+.RI "\fBgetValidNickname\fP ()"
+.br
+.RI "\fIGets a valid lpname nickname for this bug. \fP"
+.ti -1c
+.RI "\fBgetFullDescription\fP ()"
+.br
+.RI "\fIGets the full description text of this bug. \fP"
+.ti -1c
+.RI "\fBgetLaunchPadStatus\fP ()"
+.br
+.RI "\fIDeduces the LaunchPad status for this bug. \fP"
+.ti -1c
+.RI "\fBgetLaunchPadImportance\fP ()"
+.br
+.RI "\fIDeduces the LaunchPad importance for this bug. \fP"
+.ti -1c
+.RI "\fBgetMilestone\fP ()"
+.br
+.RI "\fIDeduces the LaunchPad milestone for this bug. \fP"
+.ti -1c
+.RI "\fBwritePersonTag\fP ($pTagName, $pUserId)"
+.br
+.RI "\fIWrites the given person tag, either for the given user, or, if he doesn't exist, for Nobody. \fP"
+.ti -1c
+.RI "\fBgetUrls\fP ($pDescription)"
+.br
+.RI "\fIExtracts all URLs from the given text. \fP"
+.ti -1c
+.RI "\fBtagHelper\fP (&$pValue, $pKey)"
+.br
+.RI "\fIThis is a callback-function for array_walk() to reduce all potential tags to lpnames. \fP"
+.ti -1c
+.RI "\fBgetTags\fP ($pDescription=NULL)"
+.br
+.RI "\fIReturns the tags for this bug. \fP"
+.ti -1c
+.RI "\fBgetSubscriptions\fP ()"
+.br
+.RI "\fIGets the subscribers to this bug. \fP"
+.ti -1c
+.RI "\fBhasComments\fP ()"
+.br
+.RI "\fIWhether this bug has comments. \fP"
+.ti -1c
+.RI "\fBgetBugnoteTable\fP ()"
+.br
+.RI "\fIGets the name of the bugnote table for this Mantis instance. \fP"
+.ti -1c
+.RI "\fBgetBugfileTable\fP ()"
+.br
+.RI "\fIGets the name of the bug_file table for this Mantis instance. \fP"
+.ti -1c
+.RI "\fBgetComments\fP ()"
+.br
+.RI "\fIGets the comments for this bug. \fP"
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fB$bug\fP = NULL"
+.br
+.RI "\fIReference to the bug we're wrapping around. \fP"
+.ti -1c
+.RI "\fB$xml\fP = NULL"
+.br
+.RI "\fIReference to the lpXmlWriter handling the output. \fP"
+.ti -1c
+.RI "\fB$relationships\fP = NULL"
+.br
+.RI "\fIContains this bug's relationships. \fP"
+.ti -1c
+.RI "\fB$hasAttachments\fP"
+.br
+.RI "\fIWhether this bug has attachments. Set in \fB__construct()\fP. \fP"
+.ti -1c
+.RI "\fB$commentCount\fP"
+.br
+.RI "\fIHow many comments this bug has. Set in \fB__construct()\fP. \fP"
+.ti -1c
+.RI "\fB$id\fP"
+.br
+.RI "\fIThis bug's ID. \fP"
+.ti -1c
+.RI "\fB$reporter\fP"
+.br
+.RI "\fIThis bug's reporter. NULL or person array. \fP"
+.ti -1c
+.RI "\fB$description\fP"
+.br
+.RI "\fIThis bug's full description. \fP"
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "__construct (&$pBug, &$pLpXmlWriter)"
+.PP
+Creates a new bug wrapper. \fBParameters:\fP
+.RS 4
+\fI$pBug\fP Reference to the bug to provide a wrapper for. 
+.br
+\fI$pLpXmlWriter\fP Reference to the lpXmlWriter instance. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "generateXml ()"
+.PP
+Generates/outputs the XML for this bug through the referenced lpXmlWriter. 
+.SS "getBugfileTable ()\fC [private]\fP"
+.PP
+Gets the name of the bug_file table for this Mantis instance. Database prefix and suffix of Mmantis installations can vary; this method gets the local name of the bugnote table.
+.PP
+\fBReturns:\fP
+.RS 4
+The name of the bug_file table in the database. 
+.RE
+.PP
+
+.SS "getBugnoteTable ()\fC [private]\fP"
+.PP
+Gets the name of the bugnote table for this Mantis instance. Database prefix and suffix of Mmantis installations can vary; this method gets the local name of the bugnote table.
+.PP
+\fBReturns:\fP
+.RS 4
+The name of the bugnote table in the database. 
+.RE
+.PP
+
+.SS "getComments ()\fC [private]\fP"
+.PP
+Gets the comments for this bug. This function generates the appropriate comments array for this bug; this includes returning appropriate attachment arrays and creating pseudo-comments for standalone attachments. 
+.PP
+\fBReturns:\fP
+.RS 4
+A comment array, including inner attachment arrays. 
+.RE
+.PP
+
+.SS "getDescription ()\fC [private]\fP"
+.PP
+Helper function to cache the output of \fBgetFullDescription()\fP. Use this rather than that. \fBSee also:\fP
+.RS 4
+\fBgetFullDescription()\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The full description of this bug. 
+.RE
+.PP
+
+.SS "getFullDescription ()\fC [private]\fP"
+.PP
+Gets the full description text of this bug. Mantis is finer-grained than LaunchPad; it offers the additional fields of 'Steps to Reproduce' and 'Additional Information'. In order to transfer all information, we have to not just take the plain description, but munge the additional fields into it.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetDescription()\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The full description of this bug, including the advanced fields. 
+.RE
+.PP
+
+.SS "getId ()\fC [private]\fP"
+.PP
+Returns this bug's ID. \fBReturns:\fP
+.RS 4
+This bug's ID. 
+.RE
+.PP
+
+.SS "getLaunchPadImportance ()\fC [private]\fP"
+.PP
+Deduces the LaunchPad importance for this bug. Mantis is finer-grained than LaunchPad; it has both a priority and a severity; Launchpad only has importance. This function takes Mantis's two indicators and distills them down to one LaunchPad importance.
+.PP
+\fBSee also:\fP
+.RS 4
+https://help.launchpad.net/Bugs/Statuses/External#Mantis 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The LaunchPad importance for this bug. 
+.RE
+.PP
+
+.SS "getLaunchPadStatus ()\fC [private]\fP"
+.PP
+Deduces the LaunchPad status for this bug. Mantis is far finer-grained than LaunchPad; it has a status, a resolution and a reproducibility; Launchpad only has a status. This function takes Mantis's three indicators and distills them down to one LaunchPad status.
+.PP
+\fBSee also:\fP
+.RS 4
+https://help.launchpad.net/Bugs/Statuses/External#Mantis 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The LaunchPad status for this bug. 
+.RE
+.PP
+
+.SS "getMilestone ()\fC [private]\fP"
+.PP
+Deduces the LaunchPad milestone for this bug. Mantis is finer-grained than LaunchPad; it has both a target version and fixed-in-version-field; Launchpad only has one milestone. This function takes Mantis's two indicators and chooses one to be the LaunchPad milestone.
+.PP
+\fBReturns:\fP
+.RS 4
+The LaunchPad milestone for this bug. 
+.RE
+.PP
+
+.SS "getOriginal ()\fC [private]\fP"
+.PP
+If this bug is a duplicate of another bug, this function gets the bug ID of the original. \fBReturns:\fP
+.RS 4
+The bug ID of the bug this bug is a duplicate of, or 0 if this is not a duplicate. 
+.RE
+.PP
+
+.SS "getRelationships ()\fC [private]\fP"
+.PP
+Returns the relationships this bug is the source of. \fBReturns:\fP
+.RS 4
+An array of BugRelationshipData objects, the relationships this bug is the source of. 
+.RE
+.PP
+
+.SS "getRelationshipTags ()\fC [private]\fP"
+.PP
+Generates tags out of the relationships a bug is in. \fBReturns:\fP
+.RS 4
+An array of tags (strings). 
+.RE
+.PP
+
+.SS "getReporter ()\fC [private]\fP"
+.PP
+Returns the author/submitter/reporter of this bug. \fBReturns:\fP
+.RS 4
+NULL if the reporter is not a real user (e.g. anonymous system account), a person array if he is. 
+.RE
+.PP
+
+.SS "getSubscriptions ()\fC [private]\fP"
+.PP
+Gets the subscribers to this bug. \fBReturns:\fP
+.RS 4
+An array of person arrays, the subscribers to this bug. 
+.RE
+.PP
+
+.SS "getTags ($pDescription = \fCNULL\fP)\fC [private]\fP"
+.PP
+Returns the tags for this bug. Gets the tags associated with this bug in Mantis, and returns those in any case.
+.br
+ Additionally, if an argument is given, it'll extract the ten most-used words of three letters or longer from the text given and use those as tags as well. (This is to generate topical tags for bugs that haven't been tagged in the past.)
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pDescription\fP A text to extract tags from, in our case the full description. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+An array of strings, the extracted tags. 
+.RE
+.PP
+
+.SS "getUrls ($pDescription)\fC [private]\fP"
+.PP
+Extracts all URLs from the given text. \fBNote:\fP
+.RS 4
+This function does not support URLs containing whitespace. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pDescription\fP a text to search in. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+An array containing all URLs found in the text. 
+.RE
+.PP
+
+.SS "getValidNickname ()\fC [private]\fP"
+.PP
+Gets a valid lpname nickname for this bug. \fBReturns:\fP
+.RS 4
+The safe, schema-compliant nickname for this bug. 
+.RE
+.PP
+
+.SS "hasComments ()\fC [private]\fP"
+.PP
+Whether this bug has comments. \fBReturns:\fP
+.RS 4
+Boolean 
+.RE
+.PP
+
+.SS "isPrivate ()\fC [private]\fP"
+.PP
+Whether this bug is private. \fBReturns:\fP
+.RS 4
+Boolean, whether this bug is private. 
+.RE
+.PP
+
+.SS "notARealUser ($pUserId)\fC [private]\fP"
+.PP
+Helper function checking whether the given user is a system account, rather than an actual user. Specifically, it checks whether the given user is the anonymous or the source control account. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pUserId\fP The ID of the user to check. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+True if the given user is not a real user, false if he is a real user. 
+.RE
+.PP
+
+.SS "tagHelper (&$pValue, $pKey)\fC [private]\fP"
+.PP
+This is a callback-function for array_walk() to reduce all potential tags to lpnames. This is necessary because otherwise, duplications and stop words can occur in the final output despite the fact that getTags should have filtered them out.
+.br
+ e.g. Armor=Crap and armor-crap would be equal in the eyes of lpname/Launchpad.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pValue\fP Reference to the current array value. 
+.br
+\fI$pKey\fP Current array key. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to $pArray. 
+.RE
+.PP
+
+.SS "writePersonTag ($pTagName, $pUserId)\fC [private]\fP"
+.PP
+Writes the given person tag, either for the given user, or, if he doesn't exist, for Nobody. \fBParameters:\fP
+.RS 4
+\fI$pTagName\fP The tag name for this person. 
+.br
+\fI$pUserId\fP The Id of the user to check/output. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SH "Field Documentation"
+.PP 
+.SS "$bug = NULL\fC [private]\fP"
+.PP
+Reference to the bug we're wrapping around. 
+.SS "$bugfileTable\fC [static]\fP"
+.PP
+The name of the bug files table in the DB. 
+.SS "$bugnoteTable\fC [static]\fP"
+.PP
+The name of the bugnotes table in the DB. 
+.SS "$commentCount\fC [private]\fP"
+.PP
+How many comments this bug has. Set in \fB__construct()\fP. 
+.SS "$description\fC [private]\fP"
+.PP
+This bug's full description. 
+.SS "$hasAttachments\fC [private]\fP"
+.PP
+Whether this bug has attachments. Set in \fB__construct()\fP. 
+.SS "$id\fC [private]\fP"
+.PP
+This bug's ID. 
+.SS "$relationships = NULL\fC [private]\fP"
+.PP
+Contains this bug's relationships. \fBSee also:\fP
+.RS 4
+\fBgetRelationships()\fP 
+.RE
+.PP
+
+.SS "$reporter\fC [private]\fP"
+.PP
+This bug's reporter. NULL or person array. 
+.SS "$usedNicknames = array()\fC [static]\fP"
+.PP
+Static array of bug nicknames already used. 
+.SS "$xml = NULL\fC [private]\fP"
+.PP
+Reference to the lpXmlWriter handling the output. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LaunchPad Export for Mantis from the source code.

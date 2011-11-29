@@ -1,0 +1,57 @@
+.TH "LaunchPadExportPlugin" 3 "Tue Nov 29 2011" "Version 2.0" "LaunchPad Export for Mantis" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+LaunchPadExportPlugin \- 
+.PP
+Implements a Mantis plugin. Only custom functions are defined, see Mantis documentation for the rest.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBregister\fP ()"
+.br
+.ti -1c
+.RI "\fBhooks\fP ()"
+.br
+.ti -1c
+.RI "\fBconfig\fP ()"
+.br
+.ti -1c
+.RI "\fBgetLink\fP ()"
+.br
+.RI "\fIReturns an HTML anchor to the LaunchPad Export page; this will be added above the bug list on View Issues, next to the other exporters. \fP"
+.ti -1c
+.RI "\fBadjustBugReport\fP ($pEventId, $pBugId)"
+.br
+.RI "\fIThis function is called on display of the bug view page, after the bug target version row and before the summary. It writes an additional row linking to the bug's new home on LaunchPad. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implements a Mantis plugin. Only custom functions are defined, see Mantis documentation for the rest. 
+
+\fBSee also:\fP
+.RS 4
+http://www.mantisbt.org/docs/master-1.2.x/en/developers.html#DEV.PLUGINS 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "adjustBugReport ($pEventId, $pBugId)"
+.PP
+This function is called on display of the bug view page, after the bug target version row and before the summary. It writes an additional row linking to the bug's new home on LaunchPad. It uses lpXmlWriter's getLpBugName() as part of this. 
+.SS "config ()"
+.SS "getLink ()"
+.PP
+Returns an HTML anchor to the LaunchPad Export page; this will be added above the bug list on View Issues, next to the other exporters. 
+.SS "hooks ()"
+.SS "register ()"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LaunchPad Export for Mantis from the source code.

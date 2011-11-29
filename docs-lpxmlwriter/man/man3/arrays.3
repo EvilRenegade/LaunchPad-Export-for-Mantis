@@ -1,0 +1,121 @@
+.TH "arrays" 3 "Tue Nov 29 2011" "Version 1.0" "LaunchPad XMLWriter Extension for Mantis" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+arrays \- Arrays 
+.SH "Person Arrays"
+.PP
+Person arrays are used to concisely hand over the three elements making up a LaunchPad person definition: Username, e-mail-address and full name. 
+.PP
+\fBFormat\fP
+.RS 4
+
+.PP
+.nf
+       array(
+            'nick' => 'Some Username',
+            'email' => 'foo@example.com',
+            'full' => 'Some Full Name'
+        );
+
+.fi
+.PP
+ 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+Manual creation of person arrays is \fInot\fP necessary: \fBlpXmlWriter\fP offers a static function \fBlpXmlWriter::getPersonArray()\fP with which the same array can be acquired like so: 
+.PP
+.nf
+        lpXmlWriter::getPersonArray('Some Username', 'foo@example.com', 'Some Full Name');
+
+.fi
+.PP
+ 
+.RE
+.PP
+\fB\fP
+.RS 4
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+LaunchPad's system expects an \fClpname\fP for the username; lpXmlWriter's functions are generally coded to automatically convert the arguments to the required format, but if you're writing to the XML directly, make sure to use \fBlpXmlWriter::getLpName()\fP to sanitize your output.
+.RE
+.PP
+.SH "URL Arrays"
+.PP
+URL arrays are used to hand over the list of URLs associated with a bug. 
+.PP
+\fBFormat\fP
+.RS 4
+The format is simply that of using the desired URL title as the key, and the actual URL as the value: 
+.PP
+.nf
+        array(
+            'This is link 1' => 'https://example.com',
+            'This is link 2' => 'https://example.test'
+        );
+
+.fi
+.PP
+ 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+Make sure your link titles are unique, so the links don't overwrite each other in the array.
+.RE
+.PP
+.SH "Comment Arrays"
+.PP
+These arrays embody a bug comment with all its metadata. 
+.PP
+\fBFormat\fP
+.RS 4
+
+.PP
+.nf
+        array(
+            'sender' => lpXmlWriter::getPersonArray('Some Username', 'foo@example.com', 'Some Full Name'),
+            'date' => 1234567890,
+            'title' => 'The comment's title (optional)',
+            'text' => 'The complete text of the comment',
+            'attachments' => array(array(), array())
+        );
+
+.fi
+.PP
+.RE
+.PP
+As visible, the \fCsender\fP part should contain a \fBperson array\fP; the \fCattachments\fP key should contain an array of \fBattachment arrays\fP (see below).
+.br
+ Like the \fCtitle\fP key, the \fCattachments\fP key is optional.
+.br
+ \fCdate\fP should contain a Unix timestamp.
+.SH "Attachment Arrays"
+.PP
+Attachment arrays contain both the attachment's metadata as well as the actual file content, base64-encoded; \fBlpXmlWriter\fP does that encoding automatically, so if you're working with lpXmlWriter's own methods, just dump the file contents unchanged into the \fCcontents\fP key. 
+.PP
+\fBFormat\fP
+.RS 4
+
+.PP
+.nf
+        array(
+            'contents' => 'The actual file contents',
+            'url' => 'http://thisleadsnowhere.example',
+            'patch' => true,
+            'filename' => 'some_file_name.patch',
+            'title' => 'Awesome Example Patch I',
+            'mimetype' => 'text/plain'
+        );
+
+.fi
+.PP
+.RE
+.PP
+All keys but \fCcontents\fP are optional.
+.br
+ \fCpatch\fP is a true boolean, it gets translated to LaunchPad schema boolean by \fBlpXmlWriter\fP down the line. It signifies whether this attachment is a patch or not. 

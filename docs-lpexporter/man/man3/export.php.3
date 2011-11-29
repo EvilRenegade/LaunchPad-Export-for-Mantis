@@ -1,0 +1,67 @@
+.TH "pages/export.php" 3 "Tue Nov 29 2011" "Version 2.0" "LaunchPad Export for Mantis" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+pages/export.php \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "class \fBbugWrapper\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBpanic\fP ($file, $line, $expr)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fB$outputFileName\fP = '.xml'"
+.br
+.ti -1c
+.RI "\fB$lp\fP = new lpXmlWriter('./uploads/$outputFileName')"
+.br
+.ti -1c
+.RI "\fB$pageWeWantToSee\fP = 1"
+.br
+.ti -1c
+.RI "\fB$bugsPerPage\fP = -1"
+.br
+.ti -1c
+.RI "\fB$pageCount\fP = 0"
+.br
+.ti -1c
+.RI "\fB$bugCount\fP = 0"
+.br
+.ti -1c
+.RI "\fB$bugs\fP = filter_get_bug_rows($pageWeWantToSee, $bugsPerPage, $pageCount, $bugCount)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "panic ($file, $line, $expr)"
+.SH "Variable Documentation"
+.PP 
+.SS "$bugCount = 0"
+.SS "$bugs = filter_get_bug_rows($pageWeWantToSee, $bugsPerPage, $pageCount, $bugCount)"
+.SS "$bugsPerPage = -1"
+.SS "$lp = new lpXmlWriter('./uploads/$outputFileName')"
+.SS "$outputFileName = '.xml'"
+.SS "$pageCount = 0"
+.SS "$pageWeWantToSee = 1"\fBTodo\fP
+.RS 4
+I'm not sure if Mantis allows moving/configuring the upload folder, if so, this hardcoding of ./uploads/ should be fixed. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LaunchPad Export for Mantis from the source code.

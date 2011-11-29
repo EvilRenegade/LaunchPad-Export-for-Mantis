@@ -1,0 +1,1066 @@
+.TH "lpXmlWriter" 3 "Tue Nov 29 2011" "Version 1.0" "LaunchPad XMLWriter Extension for Mantis" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lpXmlWriter \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.PP
+.RI "\fBMethods for writing person tags.\fP"
+.br
+The methods in this group output complete person tags when called. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "\fBwriteNobody\fP ($pTagName='person')"
+.br
+.RI "\fIWrites the person tag for the nobody/anonymous placeholder. \fP"
+.ti -1c
+.RI "\fBwritePerson\fP ($pTagName='person', $pUserName='USERNAME.NOT.SET', $pEmail='THIS.USER.HAS.NO.E-MAIL@example.com', $pFullName=NULL)"
+.br
+.RI "\fIWrites a complete person tag. \fP"
+.ti -1c
+.RI "\fBwritePersonA\fP ($pTagName='person', array $pPersonArray)"
+.br
+.RI "\fIWrites a complete person tag from a \fBperson array\fP. \fP"
+.in -1c
+.in -1c
+.PP
+.RI "\fBBug initialization and finalization methods.\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "\fBstartBug\fP ($pId)"
+.br
+.RI "\fIStarts a new bug element. \fP"
+.ti -1c
+.RI "\fBendBug\fP ()"
+.br
+.RI "\fIEnds the current bug element. \fP"
+.in -1c
+.in -1c
+.PP
+.RI "\fBSingle-item Output Functions\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "\fBwriteBoolean\fP ($pTagName, $pBoolean)"
+.br
+.RI "\fIWrites a boolean-containing tag to the document. \fP"
+.ti -1c
+.RI "\fBwritePrivate\fP ($pIsPrivate=true)"
+.br
+.RI "\fIWrites the <private> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteSecurityRelated\fP ($pIsSecurityRelated=true)"
+.br
+.RI "\fIWrites the <security_related> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteDuplicateOf\fP ($pExistingId)"
+.br
+.RI "\fIWrites the <duplicateof> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteDateCreated\fP ($pTimestamp)"
+.br
+.RI "\fIWrites the <datecreated> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteNickname\fP ($pNickname)"
+.br
+.RI "\fIWrites the <nickname> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteTitle\fP ($pTitle)"
+.br
+.RI "\fIWrites the <title> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteDescription\fP ($pDescription)"
+.br
+.RI "\fIWrites the <description> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteStatus\fP ($pStatus)"
+.br
+.RI "\fIWrites the <status> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteImportance\fP ($pImportance)"
+.br
+.RI "\fIWrites the <importance> tag to the document. \fP"
+.ti -1c
+.RI "\fBwriteMilestone\fP ($pMilestone)"
+.br
+.RI "\fIWrites the <milestone> tag to the document. \fP"
+.in -1c
+.in -1c
+.PP
+.RI "\fBMulti-item Output Functions\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "\fBwriteUrls\fP (array $pUrls)"
+.br
+.RI "\fIWrites the list of associated URLs to the bug. \fP"
+.ti -1c
+.RI "\fBwriteCves\fP (array $pCves)"
+.br
+.RI "\fIWrites the list of related CVE-IDs for this bug. \fP"
+.ti -1c
+.RI "\fBwriteTags\fP (array $pTags)"
+.br
+.RI "\fIWrites the list of related tags for this bug. \fP"
+.ti -1c
+.RI "\fBwriteBugwatches\fP (array $pUrls)"
+.br
+.RI "\fIWrites the list of \fCbugwatches\fP for this bug. \fP"
+.ti -1c
+.RI "\fBwriteSubscriptions\fP (array $pSubs)"
+.br
+.RI "\fIWrites the list of subscribers/watchers/monitors for this bug. \fP"
+.ti -1c
+.RI "\fBwriteComments\fP (array $pComments)"
+.br
+.RI "\fIWrites the complete comment section for this bug. \fP"
+.ti -1c
+.RI "\fBwriteAttachments\fP (array $pAttachments)"
+.br
+.RI "\fIWrites the list of attachments for this comment. \fP"
+.in -1c
+.in -1c
+.SS "Static Public Member Functions"
+
+.PP
+.RI "\fBLaunchPad Datatypes\fP"
+.br
+LaunchPad's schema defines a number of datatypes; these helper functions ease the process of properly converting your data.
+.PP
+They are all static, so you can use them independently in your own writer as well. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "static \fBgetBool\fP ($pBool)"
+.br
+.RI "\fIReturns LaunchPad string for given bool value. \fP"
+.ti -1c
+.RI "static \fBgetLpName\fP ($pName)"
+.br
+.RI "\fIGets the lpname from the given string. \fP"
+.ti -1c
+.RI "static \fBgetLpBugName\fP ($pName)"
+.br
+.RI "\fIGets the lpbugname from the given string. \fP"
+.ti -1c
+.RI "static \fBgetCveName\fP ($pName)"
+.br
+.RI "\fIConverts the given text into a CVE-ID. \fP"
+.ti -1c
+.RI "static \fBgetTimestamp\fP ($pTimestamp)"
+.br
+.RI "\fIGets a schema-conform timestamp from a Unix timestamp. \fP"
+.in -1c
+.in -1c
+.PP
+.RI "\fBPublic Helper Functions\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "static \fBgetPersonArray\fP ($pUsername, $pEmail, $pFullName)"
+.br
+.RI "\fICreates a \fBperson array\fP out of the given arguments. \fP"
+.ti -1c
+.RI "static \fBgpa\fP ($pUsername, $pEmail, $pFullName)"
+.br
+.RI "\fIA shorthand for \fBgetPersonArray()\fP. \fP"
+.in -1c
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fB$xmlNs\fP = 'https://launchpad.net/xmlns/2006/bugs'"
+.br
+.RI "\fILaunchPad XML namespace. \fP"
+.in -1c
+.PP
+.RI "\fBLaunchPad Statuses\fP"
+.br
+Static pseudo-constants for LaunchPad's statuses. You should prefer using these in your code rather than hardcoding the current values, in case something changes. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "static \fB$NEW\fP = 'NEW'"
+.br
+.ti -1c
+.RI "static \fB$INCOMPLETE\fP = 'INCOMPLETE'"
+.br
+.ti -1c
+.RI "static \fB$INVALID\fP = 'INVALID'"
+.br
+.ti -1c
+.RI "static \fB$WONTFIX\fP = 'WONTFIX'"
+.br
+.ti -1c
+.RI "static \fB$CONFIRMED\fP = 'CONFIRMED'"
+.br
+.ti -1c
+.RI "static \fB$TRIAGED\fP = 'TRIAGED'"
+.br
+.ti -1c
+.RI "static \fB$INPROGRESS\fP = 'INPROGRESS'"
+.br
+.ti -1c
+.RI "static \fB$FIXCOMMITTED\fP = 'FIXCOMMITTED'"
+.br
+.ti -1c
+.RI "static \fB$FIXRELEASED\fP = 'FIXRELEASED'"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBLaunchPad Importances\fP"
+.br
+Static pseudo-constants for LaunchPad's importances. You should prefer using these in your code rather than hardcoding the current values, in case something changes. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "static \fB$UNKNOWN\fP = 'UNKNOWN'"
+.br
+.ti -1c
+.RI "static \fB$CRITICAL\fP = 'CRITICAL'"
+.br
+.ti -1c
+.RI "static \fB$HIGH\fP = 'HIGH'"
+.br
+.ti -1c
+.RI "static \fB$MEDIUM\fP = 'MEDIUM'"
+.br
+.ti -1c
+.RI "static \fB$LOW\fP = 'LOW'"
+.br
+.ti -1c
+.RI "static \fB$WISHLIST\fP = 'WISHLIST'"
+.br
+.ti -1c
+.RI "static \fB$UNDECIDED\fP = 'UNDECIDED'"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBLaunchPad Attachment Type Identifiers\fP"
+.br
+Static pseudo-constants for LaunchPad's attachment type identifiers. You should prefer using these in your code rather than hardcoding the current values, in case something changes. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "static \fB$PATCH\fP = 'PATCH'"
+.br
+.ti -1c
+.RI "static \fB$UNSPECIFIED\fP = 'UNSPECIFIED'"
+.br
+.in -1c
+.in -1c
+.SS "Private Member Functions"
+
+.PP
+.RI "\fBPrivate Helper Functions\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "\fBwriteStuff\fP ($pTagName, $pStuff)"
+.br
+.RI "\fIWrites the given tag with the given content. \fP"
+.ti -1c
+.RI "\fBwriteStuffArray\fP ($pOuterTag, $pInnerTag, array $pContents)"
+.br
+.RI "\fIWrites a list of tags with a surrounding grouping tag. \fP"
+.ti -1c
+.RI "\fBnoOpenBug\fP ($pTag='tag')"
+.br
+.RI "\fIWhether no bug tag is open at the moment. \fP"
+.ti -1c
+.RI "\fBdebug\fP ($pMsg)"
+.br
+.RI "\fIWrites a debug comment into the XML document. \fP"
+.in -1c
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fB$inMemory\fP = false"
+.br
+.RI "\fICurrently unused; if the XML data is forced into memory, this variable will contain the success-boolean of openMemory(). \fP"
+.ti -1c
+.RI "\fB$bugIsOpen\fP = false"
+.br
+.RI "\fIWhether there currently is an unclosed bug element. \fP"
+.in -1c
+.SS "Static Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fB$result\fP = NULL"
+.br
+.RI "\fIThe return value of XML writer's flush() operation: In memory mode, the XML document, in URI mode, the number of bytes written. \fP"
+.in -1c
+.SS "Creation- and destruction-related methods"
+
+.in +1c
+.ti -1c
+.RI "static \fBgetResult\fP ()"
+.br
+.RI "\fIReturns the results of the latest flush operation. \fP"
+.ti -1c
+.RI "\fB__construct\fP ($pFilePath)"
+.br
+.RI "\fIInstantiates a new \fBlpXmlWriter\fP. \fP"
+.ti -1c
+.RI "\fB__destruct\fP ()"
+.br
+.RI "\fIDestroys the current \fBlpXmlWriter\fP. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBExamples: \fP
+.in +1c
+.PP
+\fBlpxmlwriter_example.php\fP.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "__construct ($pFilePath)"
+.PP
+Instantiates a new \fBlpXmlWriter\fP. Automatically called on instantiation, this method sets up the output parameters for the XML, starts the document and opens the root element.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pFilePath\fP Designed/intended to be the path of the output file, but can be any XMLWriter::openURI()-compatible URI, like php://output. 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+If this parameter is NULL, \fBlpXmlWriter\fP writes to memory instead. In that case, you \fIwill\fP have to 
+.PP
+.nf
+ echo lpXmlWriter::getResult(); 
+
+.fi
+.PP
+ to get the XML. 
+.RE
+.PP
+\fB\fP
+.RS 4
+If your desire is to make the current page the XML document, instead of giving NULL as the argument, consider using 
+.PP
+.nf
+<?php
+    require_once('lpxmlwriter.php');
+    header('Content-type: text/xml');
+
+    $lp = new lpXmlWriter('php://output');
+    
+    // ...your code here...
+
+.fi
+.PP
+ instead; this will make the current page the XML document without the need to retrieve the buffer from memory after deallocation. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "__destruct ()"
+.PP
+Destroys the current \fBlpXmlWriter\fP. Automatically called on destruction, this method closes the root element and flushes the written XML out to its target.
+.PP
+It also sets \fBlpXmlWriter::$result\fP for later inspection. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetResult()\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "debug ($pMsg)\fC [private]\fP"
+.PP
+Writes a debug comment into the XML document. 
+.SS "endBug ()"
+.PP
+Ends the current bug element. Signals the end of the current bug element to the system.
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "static getBool ($pBool)\fC [static]\fP"
+.PP
+Returns LaunchPad string for given bool value. This function converts the given boolean value into the proper textual representation allowed by LP's schema.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pBool\fP The boolean to convert. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The proper LaunchPad XML representation of the given boolean. 
+.RE
+.PP
+
+.SS "static getCveName ($pName)\fC [static]\fP"
+.PP
+Converts the given text into a CVE-ID. LaunchPad's schema mandates that Common Vulnerabilities and Exposures Identifiers (CVE-IDs) adhere to a very precise and narrow format; this function checks if the given text complies with the specification, and performs modifications to enforce them if it doesn't.
+.PP
+\fBWarning:\fP
+.RS 4
+Realistically, if the input to this function is not in CVE-ID-format already, it likely never was a CVE-ID in the first place. As such, the modifications performed by this function primarily serve the purpose of ensuring schema compliance to prevent parsing errors, rather than trying to salvage broken IDs. 
+.RE
+.PP
+\fB\fP
+.RS 4
+Therefore, the 'algorithm' behind this is rather crude: It kills anything that's not a number, ensures what's left are exactly 8 digits, and then inserts a dash in the middle. 
+.RE
+.PP
+\fB\fP
+.RS 4
+If you have differently-formatted CVE-IDs in your source, it is \fBstrongly\fP recommended that you write a custom transformation function instead of relying on this one.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pName\fP A CVE-ID to check. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A properly formatted CVE-ID. 
+.RE
+.PP
+
+.SS "static getLpBugName ($pName)\fC [static]\fP"
+.PP
+Gets the lpbugname from the given string. LaunchPad's schema defines an 'lpbugname' datatype which represents strings that LaunchPad accepts as nicknames for bugs; these lpbugnames are severely limited in that they can only consist of lowercase A-Z, 0-9 and the plus, minus and period characters, starting only with lowercase letters.
+.PP
+This function converts a given string into a legal lpbugname. 
+.PP
+\fBWarning:\fP
+.RS 4
+The function is in no way gentle with its conversion: It simply converts the argument to lowercase and turns all illegal characters into dashes.
+.br
+ If you need something more sophisticated, you need to roll your own method.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pName\fP The string to convert. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The lpbugname representation of the given string. 
+.RE
+.PP
+
+.SS "static getLpName ($pName)\fC [static]\fP"
+.PP
+Gets the lpname from the given string. LaunchPad's schema defines an 'lpname' datatype which represents strings that LaunchPad accepts as nicknames for users; these lpnames are severely limited in that they can only consist of lowercase A-Z, 0-9 and the plus, minus and period characters, starting only with the former ones.
+.PP
+This function converts a given string into a legal lpname. 
+.PP
+\fBWarning:\fP
+.RS 4
+The function is in no way gentle with its conversion: It simply converts the argument to lowercase and turns all illegal characters into dashes.
+.br
+ If you need something more sophisticated, you need to roll your own method.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pName\fP The string to convert. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The lpname representation of the given string. 
+.RE
+.PP
+
+.SS "static getPersonArray ($pUsername, $pEmail, $pFullName)\fC [static]\fP"
+.PP
+Creates a \fBperson array\fP out of the given arguments. \fBParameters:\fP
+.RS 4
+\fI$pUsername\fP The user's username. 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+This function does not sanitize the username, since the actual output functions of \fBlpXmlWriter\fP would do that later on. Keep that in mind if you use \fBgetPersonArray()\fP outside the confines of \fBlpXmlWriter\fP. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pEmail\fP The user's e-mail-address. 
+.br
+\fI$pFullName\fP The user's full name. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A \fBperson array\fP of the given data. 
+.RE
+.PP
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBlpxmlwriter_example.php\fP.
+.SS "static getResult ()\fC [static]\fP"
+.PP
+Returns the results of the latest flush operation. XMLWriter::flush() returns the generated XML buffer or the number of written bytes, depending on mode of operation; lpXmlWriter's destructor saves the output of the latest flush to a static variable, in case inspection by the coder is desired/required.
+.br
+ \fBgetResult()\fP returns the contents of said variable.
+.PP
+\fBReturns:\fP
+.RS 4
+The written XML or the number of bytes written, depending on the previous mode of operation. 
+.RE
+.PP
+
+.SS "static getTimestamp ($pTimestamp)\fC [static]\fP"
+.PP
+Gets a schema-conform timestamp from a Unix timestamp. LaunchPad's schema expects an ISO 8601 combined date and time in UTC, with the proper Z-suffix instead of PHP's +0000 offset.
+.br
+ This function converts a given Unix timestamp to that format.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pTimestamp\fP The Unix timestamp of the desired point in time. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+An ISO 8601 timestamp with Z-suffix (string). 
+.RE
+.PP
+
+.SS "static gpa ($pUsername, $pEmail, $pFullName)\fC [static]\fP"
+.PP
+A shorthand for \fBgetPersonArray()\fP. \fBSee also:\fP
+.RS 4
+\fBgetPersonArray()\fP 
+.RE
+.PP
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fBlpxmlwriter_example.php\fP.
+.SS "noOpenBug ($pTag = \fC'tag'\fP)\fC [private]\fP"
+.PP
+Whether no bug tag is open at the moment. This function is a debug helper/safeguard to ensure inner bug elements are not written straight into the document.
+.br
+ If no bug is open at the time of execution, it writes a debug comment saying that into the document.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pTag\fP Optional; the tag name attempting to be written. Is used in the debug message, should there be one. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The function returns the inverse of \fBlpXmlWriter::$bugIsOpen\fP, that is, it returns true if no bug element is currently open. 
+.RE
+.PP
+
+.SS "startBug ($pId)"
+.PP
+Starts a new bug element. Use this method to signal the beginning of a new bug element to the system.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pId\fP The ID your bug has in your current bug tracker; this field is required and is required by the schema to be an integer. 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+If this parameter is NULL or not an integer, \fBlpXmlWriter\fP will use a random number instead, to comply with the schema. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeAttachments (array $pAttachments)"
+.PP
+Writes the list of attachments for this comment. This function writes the list of attachments for the current comment from the provided array.
+.PP
+\fBNote:\fP
+.RS 4
+Under normal circumstances, you should \fInever\fP have to call this function.
+.br
+ Properly insert your \fBattachment arrays\fP into your comments array and call \fBwriteComments()\fP instead.
+.PP
+Should you be looking at this function because your bugtracker associates attachments with the bug, not with comments, consider inserting fake, empty comments for every attachment, or creating one fake comment containing all attachments.
+.br
+ The attachments \fImust\fP be associated with comments, that's just how LaunchPad works.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pAttachments\fP An array of \fBattachment arrays\fP, containing all attachments associated with the current comment. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeBoolean ($pTagName, $pBoolean)"
+.PP
+Writes a boolean-containing tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pTagName\fP The name of the tag to write. 
+.br
+\fI$pBoolean\fP true if true should be written.
+.br
+ I'll let you figure out the rest. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeBugwatches (array $pUrls)"
+.PP
+Writes the list of \fCbugwatches\fP for this bug. Takes an array of bugwatch-URLs and writes the complete <bugwatches> element with all inner <bugwatch> elements.
+.PP
+\fBNote:\fP
+.RS 4
+The URLs are inserted into the document as they are provided, since \fBlpXmlWriter\fP has no way of checking whether they are correct or not; please double-check their correct association and insertion as part of your quality assurance. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pUrls\fP An array of strings, those being the URLs of this bug in the current, remote or legacy bugtrackers. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeComments (array $pComments)"
+.PP
+Writes the complete comment section for this bug. This function writes the complete comment section including attachments to the document.
+.br
+ You should only ever need to call this once for every bug.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pComments\fP An array of \fBcomment arrays\fP, the complete comment section including attachments of the current bug. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeCves (array $pCves)"
+.PP
+Writes the list of related CVE-IDs for this bug. Takes an array of CVE-IDs and writes the complete <cves> element with all inner <cve> elements.
+.PP
+\fBNote:\fP
+.RS 4
+The function filters the input through \fBgetCveName()\fP on its own, there is no need to sanitize it beforehand. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pCves\fP An array of strings, those being the CVE-IDs related to this bug. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeDateCreated ($pTimestamp)"
+.PP
+Writes the <datecreated> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pTimestamp\fP The Unix timestamp of the point in time this bug was created on. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeDescription ($pDescription)"
+.PP
+Writes the <description> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pDescription\fP The description of this bug. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeDuplicateOf ($pExistingId)"
+.PP
+Writes the <duplicateof> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pExistingId\fP ID of the bug this bug is a duplicate of. Must be an integer. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeImportance ($pImportance)"
+.PP
+Writes the <importance> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pImportance\fP The current importance of this bug. Should be a value from the LaunchPad Importances group of static variables. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeMilestone ($pMilestone)"
+.PP
+Writes the <milestone> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pMilestone\fP The milestone this bug is associated with. Gets sanitized to lpname datatype. LaunchPad bug import will auto-create missing milestones. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeNickname ($pNickname)"
+.PP
+Writes the <nickname> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pNickname\fP The nickname this bug should have. Gets sanitized to lpname datatype. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeNobody ($pTagName = \fC'person'\fP)"
+.PP
+Writes the person tag for the nobody/anonymous placeholder. \fBParameters:\fP
+.RS 4
+\fI$pTagName\fP The name of the tag the data should be enclosed in. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writePerson ($pTagName = \fC'person'\fP, $pUserName = \fC'USERNAME.NOT.SET'\fP, $pEmail = \fC'THIS.USER.HAS.NO.E-MAIL@example.com'\fP, $pFullName = \fCNULL\fP)"
+.PP
+Writes a complete person tag. \fBNote:\fP
+.RS 4
+The username, in this case, is a LaunchPad-username, registered or not; this means it will be an \fIlpname\fP in the XML file. If your users can select usernames beyond lpname standards, for example containing spaces, consider setting the actual username as the full name ($pFullName), so that users keep their usual username on LaunchPad. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pTagName\fP The name of the tag the data should be enclosed in. 
+.br
+\fI$pUserName\fP The system-wise nickname of the user. Will be converted to lpname. 
+.br
+\fI$pEmail\fP The user's e-mail address. 
+.br
+\fI$pFullName\fP Optional; the 'full', proper name of the user. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writePersonA ($pTagName = \fC'person'\fP, array $pPersonArray)"
+.PP
+Writes a complete person tag from a \fBperson array\fP. Pseudo-overload for \fBwritePerson()\fP; calls \fBwritePerson()\fP with the data from the provided \fBperson array\fP.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwritePerson()\fP 
+.PP
+\fBgetPersonArray()\fP 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pTagName\fP The name of the tag the data should be enclosed in. 
+.br
+\fI$pPersonArray\fP A \fBperson array\fP. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writePrivate ($pIsPrivate = \fCtrue\fP)"
+.PP
+Writes the <private> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pIsPrivate\fP Whether this bug is private or not. Optional, defaults to true. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeSecurityRelated ($pIsSecurityRelated = \fCtrue\fP)"
+.PP
+Writes the <security_related> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pIsSecurityRelated\fP Whether this bug is security related or not. Optional, defaults to true. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeStatus ($pStatus)"
+.PP
+Writes the <status> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pStatus\fP The current status of this bug. Should be a value from the LaunchPad Statuses group of static variables. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeStuff ($pTagName, $pStuff)\fC [private]\fP"
+.PP
+Writes the given tag with the given content. This is a 'low level' writing function, performing the actual writing of a single, content-only tag using safeguards to ensure the operation can be performed properly. In other words: The tag will only be written if both arguments are given and there is an open bug to write into.
+.PP
+\fBNote:\fP
+.RS 4
+HTML entities get decoded into UTF-8 characters, HTML tags are simply stripped. Make sure your input is aligned for this treatment.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pTagName\fP The name of the tag to be written. 
+.br
+\fI$pStuff\fP The content of the tag to be written. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeStuffArray ($pOuterTag, $pInnerTag, array $pContents)\fC [private]\fP"
+.PP
+Writes a list of tags with a surrounding grouping tag. Helper for situations in which a group of tags needs to be written with a surrounding grouping tag.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pOuterTag\fP Name of the surrounding group tag. 
+.br
+\fI$pInnerTag\fP Name of the tag each of the list items will have. 
+.br
+\fI$pContents\fP Array of content items that should be surrounded by the given tags. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeSubscriptions (array $pSubs)"
+.PP
+Writes the list of subscribers/watchers/monitors for this bug. Takes an array of \fBperson arrays\fP and writes the complete <subscriptions> element with all inner <subscriber> elements.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pSubs\fP An array of \fBperson arrays\fP, those being the people who signed up to receiving notifications of changes to this bug. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeTags (array $pTags)"
+.PP
+Writes the list of related tags for this bug. Takes an array of tags and writes the complete <tags> element with all inner <tag> elements.
+.PP
+\fBNote:\fP
+.RS 4
+The function filters the input through \fBgetLpName()\fP on its own, there is no need to sanitize it beforehand. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fI$pTags\fP An array of strings, those being the tags related to this bug. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeTitle ($pTitle)"
+.PP
+Writes the <title> tag to the document. \fBParameters:\fP
+.RS 4
+\fI$pTitle\fP The title or summary of this bug. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SS "writeUrls (array $pUrls)"
+.PP
+Writes the list of associated URLs to the bug. This function takes an array of URLs and writes the complete <urls> element with all inner <url> elements.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpUrls\fP A \fBURL array\fP. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing, but writes to the XML output. 
+.RE
+.PP
+
+.SH "Field Documentation"
+.PP 
+.SS "$bugIsOpen = false\fC [private]\fP"
+.PP
+Whether there currently is an unclosed bug element. \fBSee also:\fP
+.RS 4
+\fBnoOpenBug()\fP 
+.RE
+.PP
+
+.SS "$CONFIRMED = 'CONFIRMED'\fC [static]\fP"
+.SS "$CRITICAL = 'CRITICAL'\fC [static]\fP"
+.PP
+\fBExamples: \fP
+.in +1c
+\fBlpxmlwriter_example.php\fP.
+.SS "$FIXCOMMITTED = 'FIXCOMMITTED'\fC [static]\fP"
+.SS "$FIXRELEASED = 'FIXRELEASED'\fC [static]\fP"
+.SS "$HIGH = 'HIGH'\fC [static]\fP"
+.SS "$INCOMPLETE = 'INCOMPLETE'\fC [static]\fP"
+.SS "$inMemory = false\fC [private]\fP"
+.PP
+Currently unused; if the XML data is forced into memory, this variable will contain the success-boolean of openMemory(). 
+.SS "$INPROGRESS = 'INPROGRESS'\fC [static]\fP"
+.SS "$INVALID = 'INVALID'\fC [static]\fP"
+.SS "$LOW = 'LOW'\fC [static]\fP"
+.SS "$MEDIUM = 'MEDIUM'\fC [static]\fP"
+.SS "$NEW = 'NEW'\fC [static]\fP"
+.SS "$PATCH = 'PATCH'\fC [static]\fP"
+.SS "$result = NULL\fC [static, private]\fP"
+.PP
+The return value of XML writer's flush() operation: In memory mode, the XML document, in URI mode, the number of bytes written. \fBSee also:\fP
+.RS 4
+\fBgetResult()\fP 
+.RE
+.PP
+
+.SS "$TRIAGED = 'TRIAGED'\fC [static]\fP"
+.SS "$UNDECIDED = 'UNDECIDED'\fC [static]\fP"
+.SS "$UNKNOWN = 'UNKNOWN'\fC [static]\fP"\fBWarning:\fP
+.RS 4
+Do NOT use this as a status - you will not be able to access your bugs! 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+https://bugs.launchpad.net/launchpad/+bug/889194 
+.RE
+.PP
+
+.SS "$UNSPECIFIED = 'UNSPECIFIED'\fC [static]\fP"
+.SS "$WISHLIST = 'WISHLIST'\fC [static]\fP"
+.SS "$WONTFIX = 'WONTFIX'\fC [static]\fP"
+.PP
+\fBExamples: \fP
+.in +1c
+\fBlpxmlwriter_example.php\fP.
+.SS "$xmlNs = 'https://launchpad.net/xmlns/2006/bugs'\fC [static]\fP"
+.PP
+LaunchPad XML namespace. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LaunchPad XMLWriter Extension for Mantis from the source code.
