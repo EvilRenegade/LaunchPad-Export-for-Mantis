@@ -663,7 +663,7 @@ ORDER BY bf.date_added";
 	}
 	
 	/**	\brief Creates a new bug wrapper.
-		\param $pBugId Reference to the bug to provide a wrapper for.
+		\param $pBug Reference to the bug to provide a wrapper for.
 		\param $pLpXmlWriter Reference to the lpXmlWriter instance.
 	*/
 	public function __construct(&$pBug, &$pLpXmlWriter) {
